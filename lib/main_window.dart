@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:whisper_gui/utils/controller.dart';
 import 'package:whisper_gui/utils/dialogs.dart';
+import 'package:whisper_gui/view/add.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:process_run/which.dart';
 
@@ -28,7 +29,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
       controller.whisperPath.value=whisper;
       return;
     }
-    
+
     var whisperExec = whichSync('whisper');
 
     if(whisperExec==null && context.mounted){
@@ -40,6 +41,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
   void initState() {
     super.initState();
     windowManager.addListener(this);
+    windowManager.setResizable(false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       initWshiper(context);
     });
@@ -98,6 +100,9 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
             ],
           ),
         ),
+        Obx(()=>
+          controller.configOk.value==false ? AddView() : Container(),
+        )
       ],
     );
   }
