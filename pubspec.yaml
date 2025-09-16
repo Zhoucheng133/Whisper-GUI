@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   desktop_drop: ^0.6.1
+  dropdown_button2: ^2.3.9
   file_picker: ^10.3.3
   flutter:
     sdk: flutter
