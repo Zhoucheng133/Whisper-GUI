@@ -1,6 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:whisper_gui/utils/controller.dart';
+import 'package:whisper_gui/utils/dialogs.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:process_run/which.dart';
 
@@ -13,23 +17,22 @@ class MainWindow extends StatefulWidget {
 
 class _MainWindowState extends State<MainWindow> with WindowListener {
 
-  void initWshiper(BuildContext context){
-    var whisperExec = whichSync('whisper1');
-    if(whisperExec==null){
-      showDialog(
-        context: context, 
-        builder: (context)=>AlertDialog(
-          title: Text('没有找到whisper路径'),
-          content: StatefulBuilder(
-            builder: (context, setState)=>Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+  final Controller controller=Get.find();
+  late SharedPreferences prefs;
 
-              ],
-            )
-          ),
-        )
-      );
+  Future<void> initWshiper(BuildContext context) async {
+    prefs=await SharedPreferences.getInstance();
+
+    String? whisper=prefs.getString("whisper");
+    if(whisper!=null){
+      controller.whisperPath.value=whisper;
+      return;
+    }
+    
+    var whisperExec = whichSync('whisper');
+
+    if(whisperExec==null && context.mounted){
+      manualWhisperPath(context, false);
     }
   }
 

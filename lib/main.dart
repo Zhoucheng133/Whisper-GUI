@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:whisper_gui/main_window.dart';
+import 'package:whisper_gui/utils/controller.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
@@ -15,6 +17,7 @@ Future<void> main() async {
     titleBarStyle: TitleBarStyle.hidden,
     title: "Whisper GUI"
   );
+  Get.put(Controller());
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
     await windowManager.focus();
