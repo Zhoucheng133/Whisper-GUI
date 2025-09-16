@@ -7,11 +7,13 @@ environment:
   sdk: ^3.8.1
 
 dependencies:
+  desktop_drop: ^0.6.1
   file_picker: ^10.3.3
   flutter:
     sdk: flutter
   get: ^4.7.2
   google_fonts: ^6.3.1
+  path: ^1.9.1
   process_run: ^1.2.4
   shared_preferences: ^2.5.3
   window_manager: ^0.5.1
