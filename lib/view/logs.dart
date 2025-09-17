@@ -31,6 +31,7 @@ class _LogsViewState extends State<LogsView> {
                   ),
                 ),
               ),
+              const SizedBox(height: 10,),
               ElevatedButton(
                 onPressed: (){
                   if(controller.running.value){

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:whisper_gui/utils/controller.dart';
 import 'package:whisper_gui/utils/dialogs.dart';
 import 'package:whisper_gui/view/add.dart';
+import 'package:whisper_gui/view/logs.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:process_run/which.dart';
 
@@ -34,6 +35,8 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
 
     if(whisperExec==null && context.mounted){
       manualWhisperPath(context, false);
+    }else if(whisperExec!=null){
+      controller.whisperPath.value=whisperExec;
     }
   }
 
@@ -101,7 +104,7 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
           ),
         ),
         Obx(()=>
-          controller.configOk.value==false ? AddView() : Container(),
+          controller.configOk.value==false ? AddView() : LogsView(),
         )
       ],
     );

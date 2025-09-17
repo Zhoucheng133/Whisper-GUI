@@ -77,6 +77,7 @@ Future<void> manualWhisperPath(BuildContext context, bool cancel) async {
                   return;
                 }
                 controller.whisperPath.value=pathController.text;
+                // TODO prefs存储
               }, 
               child: Text('完成')
             )
