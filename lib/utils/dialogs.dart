@@ -24,6 +24,7 @@ Future<void> manualWhisperPath(BuildContext context, bool cancel) async {
   TextEditingController pathController=TextEditingController(text: controller.whisperPath.value);
   await showDialog(
     context: context, 
+    barrierDismissible: false,
     builder: (context)=>StatefulBuilder(
       builder: (context, setState) {
         return AlertDialog(
@@ -78,6 +79,78 @@ Future<void> manualWhisperPath(BuildContext context, bool cancel) async {
                 }
                 controller.whisperPath.value=pathController.text;
                 // TODO prefs存储
+                Navigator.pop(context);
+              }, 
+              child: Text('完成')
+            )
+          ],
+        );
+      }
+    )
+  );
+}
+
+Future<void> manualFFmpegPath(BuildContext context, bool cancel) async {
+  final Controller controller=Get.find();
+  TextEditingController pathController=TextEditingController(text: controller.ffmpegPath.value);
+  await showDialog(
+    barrierDismissible: false,
+    context: context, 
+    builder: (context)=>StatefulBuilder(
+      builder: (context, setState) {
+        return AlertDialog(
+          title: Text('手动设置FFmpeg路径'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Text("你需要手动定位FFmpeg程序的位置"),
+              ),
+              SizedBox(
+                width: 400,
+                child: TextField(
+                  controller: pathController,
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: '输入FFmpeg位置',
+                    isCollapsed: true,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15)
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            if(cancel) TextButton(
+              onPressed: ()=>Navigator.pop(context), 
+              child: Text("取消")
+            ),
+            TextButton(
+              onPressed: () async {
+                FilePickerResult? result = await FilePicker.platform.pickFiles();
+                if (result != null) {
+                  // File file = File(result.files.single.path!);
+                  setState((){
+                    pathController.text=result.files.single.path!;
+                  });
+                }
+              }, 
+              child: Text('选择')
+            ),
+            ElevatedButton(
+              onPressed: (){
+                if(pathController.text.isEmpty){
+                  showOkDialog(context, "无法完成设置", "FFmpeg路径不能为空");
+                  return;
+                }
+                controller.ffmpegPath.value=pathController.text;
+                // TODO prefs存储
+                Navigator.pop(context);
               }, 
               child: Text('完成')
             )

@@ -36,6 +36,7 @@ class Task{
 
 class Controller extends GetxController{
   RxString whisperPath="".obs;
+  RxString ffmpegPath="".obs;
 
   RxBool configOk=false.obs;
 

@@ -173,6 +173,7 @@ class _AddViewState extends State<AddView> {
                       const SizedBox(height: 10,),
                       Row(
                         children: [
+                          const SizedBox(width: 10,),
                           Text("模型"),
                           const SizedBox(width: 5,),
                           Expanded(
@@ -217,6 +218,24 @@ class _AddViewState extends State<AddView> {
                               )
                             ),
                           ),
+                        ],
+                      ),
+                      const SizedBox(height: 10,),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextButton(
+                              onPressed: ()=>manualWhisperPath(context, true), 
+                              child: Text('配置Whisper')
+                            )
+                          ),
+                          const SizedBox(width: 10,),
+                          Expanded(
+                            child: TextButton(
+                              onPressed: ()=>manualFFmpegPath(context, true), 
+                              child: Text('配置FFmpeg')
+                            )
+                          )
                         ],
                       ),
                       Expanded(child: Container()),
