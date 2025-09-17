@@ -93,7 +93,7 @@ class Controller extends GetxController{
         runInShell: true,
         environment: {
           'PYTHONUNBUFFERED': '1',
-          'PATH': "/Users/zhoucheng/ffmpeg:\$PATH"
+          'PATH': "${p.dirname(ffmpegPath.value)}:\$PATH"
         },
         workingDirectory: p.dirname(filePath)
       );

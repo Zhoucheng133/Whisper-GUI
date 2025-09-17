@@ -26,17 +26,30 @@ class _MainWindowState extends State<MainWindow> with WindowListener {
     prefs=await SharedPreferences.getInstance();
 
     String? whisper=prefs.getString("whisper");
+    String? ffmpeg=prefs.getString("ffmpeg");
     if(whisper!=null){
       controller.whisperPath.value=whisper;
+    }
+    if(ffmpeg!=null){
+      controller.ffmpegPath.value=ffmpeg;
+    }
+
+    if(ffmpeg!=null && whisper!=null){
       return;
     }
 
     var whisperExec = whichSync('whisper');
-
     if(whisperExec==null && context.mounted){
       manualWhisperPath(context, false);
     }else if(whisperExec!=null){
       controller.whisperPath.value=whisperExec;
+    }
+
+    var ffmpegExec=whichSync("ffmpeg");
+    if(ffmpegExec==null && context.mounted){
+      manualFFmpegPath(context, false);
+    }else if(ffmpegExec!=null){
+      controller.ffmpegPath.value=ffmpegExec;
     }
   }
 
