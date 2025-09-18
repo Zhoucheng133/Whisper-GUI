@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:whisper_gui/utils/controller.dart';
 
 Future<void> showOkDialog(BuildContext context, String title, String content, {String okText="好的"}) async {
@@ -72,14 +73,15 @@ Future<void> manualWhisperPath(BuildContext context, bool cancel) async {
               child: Text('选择')
             ),
             ElevatedButton(
-              onPressed: (){
+              onPressed: () async {
                 if(pathController.text.isEmpty){
                   showOkDialog(context, "无法完成设置", "whisper路径不能为空");
                   return;
                 }
                 controller.whisperPath.value=pathController.text;
-                // TODO prefs存储
-                Navigator.pop(context);
+                final prefs=await SharedPreferences.getInstance();
+                prefs.setString("whisper", pathController.text);
+                if(context.mounted) Navigator.pop(context);
               }, 
               child: Text('完成')
             )
@@ -143,14 +145,15 @@ Future<void> manualFFmpegPath(BuildContext context, bool cancel) async {
               child: Text('选择')
             ),
             ElevatedButton(
-              onPressed: (){
+              onPressed: () async {
                 if(pathController.text.isEmpty){
                   showOkDialog(context, "无法完成设置", "FFmpeg路径不能为空");
                   return;
                 }
                 controller.ffmpegPath.value=pathController.text;
-                // TODO prefs存储
-                Navigator.pop(context);
+                final prefs=await SharedPreferences.getInstance();
+                prefs.setString("ffmpeg", pathController.text);
+                if(context.mounted) Navigator.pop(context);
               }, 
               child: Text('完成')
             )
