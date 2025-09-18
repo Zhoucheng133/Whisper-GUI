@@ -61,24 +61,49 @@ class _AddViewState extends State<AddView> {
         child: Row(
           children: [
             Expanded(
-              child: Center(
-                child: filePath.isEmpty ? Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      onPressed: () async {
-                        FilePickerResult? result = await FilePicker.platform.pickFiles();
-                        if (result != null && context.mounted) {
-                          filePicker(context, result.files.single.path!);
-                        }
-                      }, 
-                      icon: Icon(Icons.add_rounded)
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: filePath.isEmpty ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: () async {
+                          FilePickerResult? result = await FilePicker.platform.pickFiles();
+                          if (result != null && context.mounted) {
+                            filePicker(context, result.files.single.path!);
+                          }
+                        }, 
+                        icon: Icon(Icons.add_rounded)
+                      ),
+                      const SizedBox(height: 5,),
+                      Text('添加音视频文件或者拖拽到窗口中'),
+                    ],
+                  ) : SizedBox(
+                    width: 350,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('当前:'),
+                        Text(filePath),
+                        const SizedBox(height: 10,),
+                        Row(
+                          children: [
+                            Expanded(child: Container()),
+                            TextButton(
+                              onPressed: (){
+                                setState(() {
+                                  filePath='';
+                                });
+                              }, 
+                              child: const Text('重新选择')
+                            )
+                          ],
+                        )
+                      ],
                     ),
-                    const SizedBox(height: 5,),
-                    Text('添加音视频文件或者拖拽到窗口中'),
-                  ],
-                ) : Text(
-                  filePath
+                  ),
                 ),
               ),
             ),
