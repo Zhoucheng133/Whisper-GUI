@@ -23,7 +23,9 @@ class _LogsViewState extends State<LogsView> {
             children: [
               Expanded(
                 child: Obx(
-                  ()=> ListView.builder(
+                  ()=> controller.logs.isEmpty ? Center(
+                    child: CircularProgressIndicator(),
+                  ) : ListView.builder(
                     itemCount: controller.logs.length,
                     itemBuilder: (BuildContext context, int index)=>Text(
                       controller.logs[index]
