@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whisper_gui/utils/controller.dart';
@@ -35,10 +37,17 @@ class _LogsViewState extends State<LogsView> {
               ),
               const SizedBox(height: 10,),
               ElevatedButton(
-                onPressed: (){
+                onPressed: () async {
                   if(controller.running.value){
                     try {
-                      controller.process.kill();
+                      if(Platform.isMacOS){
+                        controller.process.kill();
+                      }else{
+                        await Process.run(
+                          'taskkill',
+                          ['/PID', controller.process.pid.toString(), '/T', '/F']
+                        );
+                      }
                     } catch (_) {}
                     controller.running.value=false;
                   }
