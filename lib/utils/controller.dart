@@ -87,33 +87,40 @@ class Controller extends GetxController{
         if (lang != null) lang,
       ];
 
+      final pathListSep = Platform.isWindows ? ';' : ':';
+
+      final env = Map<String, String>.from(Platform.environment);
+      env['PYTHONUNBUFFERED'] = '1';
+      env['PYTHONUTF8']='1';
+      final ffDir = p.dirname(ffmpegPath.value);
+      env['PATH'] = '$ffDir$pathListSep${env['PATH'] ?? ""}';
+
       process = await Process.start(
         whisperPath.value,
         args,
         runInShell: true,
-        environment: {
-          'PYTHONUNBUFFERED': '1',
-          'PATH': "${p.dirname(ffmpegPath.value)}:\$PATH"
-        },
-        workingDirectory: p.dirname(filePath)
+        environment: env,
+        workingDirectory: p.dirname(filePath),
       );
 
       process.stdout
-      .transform(utf8.decoder)
-      .transform(const LineSplitter())
-      .listen((line) {
-        logs.insert(0, line);
+      .listen((data) {
+        final text = utf8.decode(data, allowMalformed: true);
+        for (final line in LineSplitter().convert(text)) {
+          logs.insert(0, line);
+        }
       });
 
       process.stderr
-      .transform(utf8.decoder)
-      .transform(const LineSplitter())
-      .listen((line) {
-        logs.insert(0, line);
+      .listen((data) {
+        final text = utf8.decode(data, allowMalformed: true);
+        for (final line in LineSplitter().convert(text)) {
+          logs.insert(0, line);
+        }
       });
 
       process.exitCode.then((code) {
-        running.value=false;
+        running.value = false;
       });
     } catch (_) {}
 
