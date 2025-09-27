@@ -13,6 +13,15 @@ enum Models{
   turbo
 }
 
+enum Output{
+  all,
+  txt,
+  vtt,
+  srt,
+  tsv,
+  json
+}
+
 class Task{
   String? filePath;
   String? lang;

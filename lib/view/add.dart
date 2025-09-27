@@ -24,6 +24,41 @@ class _AddViewState extends State<AddView> {
   TextEditingController langController=TextEditingController();
   bool wordTimeStamps=true;
   String model=Models.turbo.name;
+  Output output=Output.all;
+
+  String outputToString(Output output){
+    switch (output) {
+      case Output.all:
+        return "全部";
+      case Output.json:
+        return "JSON";
+      case Output.srt:
+        return "srt";
+      case Output.tsv:
+        return "tsv";
+      case Output.txt:
+        return "txt";
+      case Output.vtt:
+        return "vtt";
+    }
+  }
+
+  Output stringToOutput(String str){
+    switch (str) {
+      case "JSON":
+        return Output.json;
+      case "srt":
+        return Output.srt;
+      case "tsv":
+        return Output.tsv;
+      case "txt":
+        return Output.txt;
+      case "vtt":
+        return Output.vtt;
+      default:
+        return Output.all;
+    }
+  }
 
   Future<void> filePicker(BuildContext context, String path) async {
     bool valid;
@@ -237,6 +272,56 @@ class _AddViewState extends State<AddView> {
                                   if(val!=null){
                                     setState(() {
                                       model=val;
+                                    });
+                                  }
+                                },
+                              )
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10,),
+                      Row(
+                        children: [
+                          const SizedBox(width: 10,),
+                          Text("输出"),
+                          const SizedBox(width: 5,),
+                          Expanded(
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                buttonStyleData: ButtonStyleData(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5)
+                                  )
+                                ),
+                                menuItemStyleData: MenuItemStyleData(
+                                  height: 40,
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                  padding: const EdgeInsets.symmetric(vertical: 0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Theme.of(context).colorScheme.surface
+                                  )
+                                ),
+                                isExpanded: true,
+                                value: outputToString(output),
+                                items: Output.values.map((item){
+                                  return DropdownMenuItem(
+                                    value: outputToString(item),
+                                    child: Text(
+                                      outputToString(item),
+                                      style: GoogleFonts.notoSansSc(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (val){
+                                  if(val!=null){
+                                    setState(() {
+                                      output=stringToOutput(val);
                                     });
                                   }
                                 },
