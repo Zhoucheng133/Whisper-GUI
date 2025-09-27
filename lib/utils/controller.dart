@@ -55,7 +55,7 @@ class Controller extends GetxController{
 
   RxBool running=false.obs;
 
-  Future<void> exec(String filePath, String? lang, bool wordTimeStamps, String model) async {
+  Future<void> exec(String filePath, String? lang, bool wordTimeStamps, String model, Output output) async {
     Models taskModel;
     switch (model) {
       case "tiny":
@@ -94,6 +94,8 @@ class Controller extends GetxController{
         "--word_timestamps", wordTimeStamps ? "True" : "False",
         if (lang != null) "--language",
         if (lang != null) lang,
+        if (output!=Output.all) "--output_format",
+        if (output!=Output.all) output.name
       ];
 
       final pathListSep = Platform.isWindows ? ';' : ':';

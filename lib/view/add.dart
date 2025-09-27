@@ -350,7 +350,7 @@ class _AddViewState extends State<AddView> {
                       ),
                       Expanded(child: Container()),
                       ElevatedButton(
-                        onPressed: filePath.isEmpty ? null : ()=>controller.exec(filePath, autoLanguage ? null : langController.text, wordTimeStamps, model), 
+                        onPressed: filePath.isEmpty ? null : ()=>controller.exec(filePath, autoLanguage ? null : langController.text, wordTimeStamps, model, output), 
                         child: Text('执行')
                       )
                     ],
