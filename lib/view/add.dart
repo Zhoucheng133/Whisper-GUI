@@ -3,7 +3,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart' as p;
 import 'package:whisper_gui/utils/controller.dart';
 import 'package:whisper_gui/utils/dialogs.dart';
@@ -191,12 +190,12 @@ class _AddViewState extends State<AddView> {
                             border: OutlineInputBorder(),
                             hintText: "自定义语言",
                             isCollapsed: true,
-                            hintStyle: GoogleFonts.notoSansSc(
+                            hintStyle: TextStyle(
                               color: Colors.grey[400]
                             ),
                             contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10)
                           ),
-                          style: GoogleFonts.notoSansSc(
+                          style: TextStyle(
                             fontSize: 13
                           ),
                         ),
@@ -262,7 +261,7 @@ class _AddViewState extends State<AddView> {
                                     value: item.name,
                                     child: Text(
                                       item.name,
-                                      style: GoogleFonts.notoSansSc(
+                                      style: TextStyle(
                                         fontSize: 14,
                                       ),
                                     ),
@@ -312,7 +311,7 @@ class _AddViewState extends State<AddView> {
                                     value: outputToString(item),
                                     child: Text(
                                       outputToString(item),
-                                      style: GoogleFonts.notoSansSc(
+                                      style: TextStyle(
                                         fontSize: 14,
                                       ),
                                     ),

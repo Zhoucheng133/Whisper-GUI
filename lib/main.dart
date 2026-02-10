@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:whisper_gui/main_window.dart';
 import 'package:whisper_gui/utils/controller.dart';
 import 'package:window_manager/window_manager.dart';
@@ -27,7 +26,6 @@ Future<void> main() async {
 
 class MainApp extends StatelessWidget {
   
-
   const MainApp({super.key});
 
   @override
@@ -36,18 +34,33 @@ class MainApp extends StatelessWidget {
     final brightness = MediaQuery.of(context).platformBrightness; 
 
     return MaterialApp(
-      theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
-        textTheme: GoogleFonts.notoSansScTextTheme().apply(
-          bodyColor: Colors.white,
-          displayColor: Colors.white, 
-        ),
+      // theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
+      //   textTheme: GoogleFonts.notoSansScTextTheme().apply(
+      //     bodyColor: Colors.white,
+      //     displayColor: Colors.white, 
+      //   ),
+      //   colorScheme: ColorScheme.fromSeed(
+      //     seedColor: Colors.indigo,
+      //     brightness: Brightness.dark,
+      //   ),
+      // ) : ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+      //   textTheme: GoogleFonts.notoSansScTextTheme(),
+      // ),
+      theme: ThemeData(
+        brightness: brightness==Brightness.dark ? Brightness.dark : Brightness.light,
+        fontFamily: 'PuHui', 
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.indigo,
-          brightness: Brightness.dark,
+          brightness: brightness==Brightness.dark ? Brightness.dark : Brightness.light,
         ),
-      ) : ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        textTheme: GoogleFonts.notoSansScTextTheme(),
+        textTheme: brightness==Brightness.dark ? ThemeData.dark().textTheme.apply(
+          fontFamily: 'PuHui',
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        ) : ThemeData.light().textTheme.apply(
+          fontFamily: 'PuHui',
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
