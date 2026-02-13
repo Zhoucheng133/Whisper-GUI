@@ -167,17 +167,13 @@ class _AddViewState extends State<AddView> {
                               }
                             }
                           ),
-                          // const SizedBox(width: 5,),
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: (){
-                                setState(() {
-                                  autoLanguage=!autoLanguage;
-                                });
-                              },
-                              child: Text("自动检测语言")
-                            ),
+                          GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                autoLanguage=!autoLanguage;
+                              });
+                            },
+                            child: Text("自动检测语言")
                           )
                         ],
                       ),
@@ -215,17 +211,13 @@ class _AddViewState extends State<AddView> {
                               }
                             }
                           ),
-                          // const SizedBox(width: 5,),
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: (){
-                                setState(() {
-                                  wordTimeStamps=!wordTimeStamps;
-                                });
-                              },
-                              child: Text("逐字识别")
-                            ),
+                          GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                wordTimeStamps=!wordTimeStamps;
+                              });
+                            },
+                            child: Text("逐字识别")
                           )
                         ],
                       ),
