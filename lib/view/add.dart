@@ -25,6 +25,9 @@ class _AddViewState extends State<AddView> {
   String model=Models.turbo.name;
   Output output=Output.all;
 
+  bool hoverModel=false;
+  bool hoverOutput=false;
+
   String outputToString(Output output){
     switch (output) {
       case Output.all:
@@ -246,6 +249,40 @@ class _AddViewState extends State<AddView> {
                                     color: Theme.of(context).colorScheme.surface
                                   )
                                 ),
+                                customButton: MouseRegion(
+                                  cursor: SystemMouseCursors.basic,
+                                  onEnter: (_){
+                                    setState(() {
+                                      hoverModel=true;
+                                    });
+                                  },
+                                  onExit: (_){
+                                    setState(() {
+                                      hoverModel=false;
+                                    });
+                                  },
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 200),
+                                    decoration: BoxDecoration(
+                                      color: hoverModel ? Theme.of(context).colorScheme.primary.withAlpha(15) : Theme.of(context).colorScheme.primary.withAlpha(0),
+                                      borderRadius: BorderRadius.circular(5)
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                                      child: Row(
+                                        children: [
+                                          Expanded(child: Text(
+                                            model,
+                                            style: TextStyle(
+                                              fontSize: 14
+                                            ),
+                                          )),
+                                          Icon(Icons.arrow_drop_down)
+                                        ],
+                                      ),
+                                    )
+                                  )
+                                ),
                                 isExpanded: true,
                                 value: model,
                                 items: Models.values.map((item){
@@ -288,6 +325,40 @@ class _AddViewState extends State<AddView> {
                                 menuItemStyleData: MenuItemStyleData(
                                   height: 40,
                                   padding: EdgeInsets.only(left: 10, right: 10),
+                                ),
+                                customButton: MouseRegion(
+                                  cursor: SystemMouseCursors.basic,
+                                  onEnter: (_){
+                                    setState(() {
+                                      hoverOutput=true;
+                                    });
+                                  },
+                                  onExit: (_){
+                                    setState(() {
+                                      hoverOutput=false;
+                                    });
+                                  },
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 200),
+                                    decoration: BoxDecoration(
+                                      color: hoverOutput ? Theme.of(context).colorScheme.primary.withAlpha(15) : Theme.of(context).colorScheme.primary.withAlpha(0),
+                                      borderRadius: BorderRadius.circular(5)
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                                      child: Row(
+                                        children: [
+                                          Expanded(child: Text(
+                                            outputToString(output),
+                                            style: TextStyle(
+                                              fontSize: 14
+                                            ),
+                                          )),
+                                          Icon(Icons.arrow_drop_down)
+                                        ],
+                                      ),
+                                    )
+                                  )
                                 ),
                                 dropdownStyleData: DropdownStyleData(
                                   padding: const EdgeInsets.symmetric(vertical: 0),
