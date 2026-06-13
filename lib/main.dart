@@ -34,19 +34,6 @@ class MainApp extends StatelessWidget {
     final brightness = MediaQuery.of(context).platformBrightness; 
 
     return MaterialApp(
-      // theme: brightness==Brightness.dark ? ThemeData.dark().copyWith(
-      //   textTheme: GoogleFonts.notoSansScTextTheme().apply(
-      //     bodyColor: Colors.white,
-      //     displayColor: Colors.white, 
-      //   ),
-      //   colorScheme: ColorScheme.fromSeed(
-      //     seedColor: Colors.indigo,
-      //     brightness: Brightness.dark,
-      //   ),
-      // ) : ThemeData(
-      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-      //   textTheme: GoogleFonts.notoSansScTextTheme(),
-      // ),
       theme: ThemeData(
         brightness: brightness==Brightness.dark ? Brightness.dark : Brightness.light,
         fontFamily: 'PuHui', 

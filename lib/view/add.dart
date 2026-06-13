@@ -149,7 +149,7 @@ class _AddViewState extends State<AddView> {
               child: Container(
                 width: 250,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.grey[900],
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: Padding(
